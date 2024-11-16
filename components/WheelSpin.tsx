@@ -9,7 +9,7 @@ const LotteryWheel = () => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
   const [rotation, setRotation] = useState(0);
-  const [numbers] = useState(() => Array.from({ length: 74 }, (_, i) => i + 1));
+  const [numbers] = useState(() => Array.from({ length: 80 }, (_, i) => i + 1));
   const [colors] = useState(() => {
     // Define rainbow colors
     const rainbowColors = [
@@ -23,7 +23,7 @@ const LotteryWheel = () => {
     ];
 
     // Assign colors to numbers sequentially, repeating the pattern
-    return Array.from({ length: 74 }, (_, i) => {
+    return Array.from({ length: 80 }, (_, i) => {
       const colorIndex = i % rainbowColors.length;
       return rainbowColors[colorIndex];
     });
@@ -56,12 +56,12 @@ const LotteryWheel = () => {
   const SPIN_DURATION = 5000;
 
   const getNumberPosition = (index: number) => {
-    const angle = index * (360 / 74) * (Math.PI / 180);
+    const angle = index * (360 / 80) * (Math.PI / 180);
     const radius = wheelSize * 0.4;
     return {
       x: CENTER + radius * Math.cos(angle),
       y: CENTER + radius * Math.sin(angle),
-      angle: index * (360 / 74) + 90,
+      angle: index * (360 / 80) + 90,
     };
   };
 
@@ -77,13 +77,13 @@ const LotteryWheel = () => {
     // Select either the desired number or a random number
     const targetNumber = isThirdSpin
       ? desiredNumber
-      : Math.floor(Math.random() * 74) + 1;
+      : Math.floor(Math.random() * 80) + 1;
 
     // Calculate the current position of the target number
     const numberIndex = numbers.indexOf(targetNumber);
 
     // Calculate rotation needed to align number at top (270 degrees)
-    const sectorAngle = 360 / 74;
+    const sectorAngle = 360 / 80;
     const currentRotation = rotation % 360; // Get current base rotation
     const targetAngle = 270 - numberIndex * sectorAngle; // We want the number at 270 degrees (top)
 
@@ -116,7 +116,7 @@ const LotteryWheel = () => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = parseInt(e.target.value);
-    if (value >= 1 && value <= 74) {
+    if (value >= 1 && value <= 80) {
       setDesiredNumber(value);
     }
   };
@@ -156,12 +156,12 @@ const LotteryWheel = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Lucky Number (1-74)
+                  Lucky Number (1-80)
                 </label>
                 <input
                   type="number"
                   min="1"
-                  max="74"
+                  max="80"
                   value={desiredNumber}
                   onChange={handleDesiredNumberChange}
                   className="w-full px-3 py-2 border rounded-md"
@@ -211,7 +211,7 @@ const LotteryWheel = () => {
           <svg width={wheelSize} height={wheelSize}>
             {numbers.map((number, index) => {
               const { x, y, angle } = getNumberPosition(index);
-              const section = index * (360 / 74);
+              const section = index * (360 / 80);
               const currentColor = colors[index];
               const textColor =
                 currentColor === "#FFFF00" ||
