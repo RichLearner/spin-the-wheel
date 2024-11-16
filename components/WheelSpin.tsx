@@ -35,12 +35,12 @@ const LotteryWheel = () => {
   useEffect(() => {
     const updateWheelSize = () => {
       const screenWidth = window.innerWidth;
-      // For mobile (< 768px), use 90% of screen width
+      // For mobile (< 768px), use 80% of screen width
       // For larger screens, use 600px or 80% of screen width, whichever is smaller
       const newSize =
         screenWidth < 768
-          ? Math.min(screenWidth * 0.9, 600)
-          : Math.min(screenWidth * 0.8, 600);
+          ? Math.min(screenWidth * 0.75, 500)
+          : Math.min(screenWidth * 0.75, 600);
       setWheelSize(newSize);
     };
 
@@ -187,7 +187,7 @@ const LotteryWheel = () => {
 
       {/* Wheel Container */}
       <div
-        className="relative mb-8 w-full max-w-[600px]"
+        className="relative mb-8 w-full max-w-[600px] p-10"
         style={{ width: wheelSize, height: wheelSize }}
       >
         {/* Background Circle */}
